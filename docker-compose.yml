@@ -1,13 +1,12 @@
 version: '3.8'
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:latest
     container_name: product-db
     environment:
-      # Estas variables de entorno se asignarán al contenedor de PostgreSQL
-      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
-      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      POSTGRES_DB: productdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: product_db
     ports:
       - "5432:5432"
     volumes:
@@ -22,9 +21,9 @@ services:
       - db
     environment:
       # Spring Boot leerá estas variables
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/product_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
 volumes:
