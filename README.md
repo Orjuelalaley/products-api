@@ -17,9 +17,32 @@ Incluye un contenedor PostgreSQL para la base de datos y otro para la aplicació
 - Maven 3.8+
 - Docker y docker-compose
 
-## Ejecución
+## Execution
 
-1. Clonar el repositorio:
+1. Clone the repository:
    ```bash
    git clone https://github.com/tu-usuario/product-api.git
    cd product-api
+
+2. Build the project:
+   ```bash
+   mvn clean package
+3. Run the application:
+   ```bash
+   java -jar target/product-api-1.0.0.jar
+4. Access the API
+   - API Endpoints: http://localhost:8080/products
+   - Swagger UI: http://localhost:8080/swagger-ui/index.html
+     
+## Running with Docker
+1. Ensure Docker and docker-compose are installed.
+2. Build the Docker images:
+   ```bash
+   docker-compose up --build
+3. Access the API
+   - API Endpoints: http://localhost:8080/products
+   - Swagger UI: http://localhost:8080/swagger-ui/index.html
+4. stop the container:
+    ```bash
+    docker-compose down
+    ```
