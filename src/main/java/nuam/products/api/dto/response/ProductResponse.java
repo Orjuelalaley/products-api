@@ -1,22 +1,20 @@
-package nuam.productsapi.dto.request;
-
+package nuam.products.api.dto.response;
 
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class ProductDto {
-    @NotBlank(message = "The product name cannot be blank.")
-    @Size(min = 3, message = "The product name must have at least 3 characters.")
+public class ProductResponse {
+    private Long id;
     private String name;
     private String description;
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.")

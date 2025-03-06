@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- Define el patrón de log personalizado -->
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"/>
+    <!-- Registrar la regla para el conversor %clr -->
+    <conversionRule conversionWord="clr" class="org.springframework.boot.logging.logback.ColorConverter"/>
+
+    <!-- Patrón de log para consola con colores usando únicamente %clr -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(%-5level){FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=blue} %clr([%thread]){faint} %clr(%logger{36}){blue} - %msg%n"/>
+
+    <!-- Patrón de log para archivo (sin colores) -->
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"/>
 
     <!-- Appender de consola -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- Appender para archivo (rotación diaria) -->
+    <!-- Appender para archivo con logs organizados en carpetas por día -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/products-api.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- Rota diariamente y guarda por 30 días -->
-            <fileNamePattern>logs/products-api-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- Se creará una carpeta con la fecha actual para almacenar el log -->
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/products-api.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- Configura el nivel de logging de la aplicación y de terceros -->
+    <!-- Configuración global de logging -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>
 
-    <!-- Configuración específica para tu paquete, si deseas más detalle -->
+    <!-- Logging específico para el paquete de la aplicación -->
     <logger name="nuam.productsapi" level="DEBUG"/>
 
 </configuration>

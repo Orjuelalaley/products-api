@@ -1,4 +1,4 @@
-package nuam.productsapi.entity;
+package nuam.products.api.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;

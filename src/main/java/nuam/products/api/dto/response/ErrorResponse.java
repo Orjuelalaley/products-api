@@ -1,4 +1,4 @@
-package nuam.productsapi.dto.response;
+package nuam.products.api.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

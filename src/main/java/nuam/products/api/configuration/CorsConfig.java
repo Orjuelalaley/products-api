@@ -1,4 +1,4 @@
-package nuam.productsapi.configuration;
+package nuam.products.api.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;

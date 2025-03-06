@@ -1,6 +1,6 @@
-package nuam.productsapi.repository;
+package nuam.products.api.repository;
 
-import nuam.productsapi.entity.Product;
+import nuam.products.api.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

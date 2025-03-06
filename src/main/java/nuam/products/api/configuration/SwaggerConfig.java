@@ -1,4 +1,4 @@
-package nuam.productsapi.configuration;
+package nuam.products.api.configuration;
 
 import io.swagger.v3.oas.models.info.Info;
 import org.springdoc.core.models.GroupedOpenApi;

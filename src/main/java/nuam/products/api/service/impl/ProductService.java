@@ -1,10 +1,11 @@
-package nuam.productsapi.service.impl;
+package nuam.products.api.service.impl;
 
-import nuam.productsapi.dto.request.ProductDto;
-import nuam.productsapi.entity.Product;
-import nuam.productsapi.exception.ProductNotFoundException;
-import nuam.productsapi.repository.ProductRepository;
-import nuam.productsapi.service.intf.IProductService;
+import nuam.products.api.dto.request.ProductDto;
+import nuam.products.api.entity.Product;
+import nuam.products.api.repository.ProductRepository;
+import nuam.products.api.service.intf.IProductService;
+import nuam.products.api.dto.response.ProductResponse;
+import nuam.products.api.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDto> getAllProducts() {
+    public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
                 .map(this::convertToDto)
@@ -29,21 +30,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ProductDto getProductById(Long id) {
+    public ProductResponse getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
         return convertToDto(product);
     }
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
+    public ProductResponse createProduct(ProductDto productDto) {
         Product product = convertToEntity(productDto);
         Product savedProduct = productRepository.save(product);
         return convertToDto(savedProduct);
     }
 
     @Override
-    public ProductDto updateProduct(Long id, ProductDto productDto) {
+    public ProductResponse updateProduct(Long id, ProductDto productDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
         updateEntityFromDto(product, productDto);
@@ -61,8 +62,9 @@ public class ProductService implements IProductService {
 
     // Métodos privados de mapeo para separar responsabilidades
 
-    private ProductDto convertToDto(Product product) {
-        return ProductDto.builder()
+    private ProductResponse convertToDto(Product product) {
+        return ProductResponse.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())

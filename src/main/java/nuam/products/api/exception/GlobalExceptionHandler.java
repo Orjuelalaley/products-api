@@ -1,6 +1,6 @@
-package nuam.productsapi.exception;
+package nuam.products.api.exception;
 
-import nuam.productsapi.dto.response.ErrorResponse;
+import nuam.products.api.dto.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
