@@ -1,6 +1,6 @@
 package nuam.productsapi.service.impl;
 
-import nuam.productsapi.dto.request.ProductDto;
+import nuam.productsapi.dto.ProductDto;
 import nuam.productsapi.entity.Product;
 import nuam.productsapi.exception.ProductNotFoundException;
 import nuam.productsapi.repository.ProductRepository;
@@ -63,6 +63,7 @@ public class ProductService implements IProductService {
 
     private ProductDto convertToDto(Product product) {
         return ProductDto.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
@@ -75,7 +76,6 @@ public class ProductService implements IProductService {
                 .name(productDto.getName())
                 .description(productDto.getDescription())
                 .price(productDto.getPrice())
-                .createdAt(productDto.getCreatedAt())
                 .build();
     }
 

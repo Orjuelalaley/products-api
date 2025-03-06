@@ -1,7 +1,8 @@
 package nuam.productsapi.service.intf;
 
 
-import nuam.productsapi.dto.request.ProductDto;
+import nuam.productsapi.dto.ProductDto;
+import nuam.productsapi.entity.Product;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package nuam.productsapi.dto.request;
+package nuam.productsapi.dto;
 
 
 import jakarta.validation.constraints.DecimalMin;
@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class ProductDto {
+    private Long id;
     @NotBlank(message = "The product name cannot be blank.")
     @Size(min = 3, message = "The product name must have at least 3 characters.")
     private String name;
