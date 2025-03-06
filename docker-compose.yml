@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: product_db
+      POSTGRES_DB: products_db
     ports:
       - "5432:5432"
     volumes:
@@ -21,9 +21,9 @@ services:
       - db
     environment:
       # Spring Boot leerá estas variables
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/product_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/products_db
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
 volumes:
