@@ -27,11 +27,11 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductResponse createProduct(ProductRequest productRequest) {
-        Product product = Product.builder()
-                .name(productRequest.getName())
-                .description(productRequest.getDescription())
-                .price(productRequest.getPrice())
-                .build();
+        Product product = new Product();
+        product.setName(productRequest.getName());
+        product.setDescription(productRequest.getDescription());
+        product.setPrice(productRequest.getPrice());
+        product.setCreatedAt(productRequest.getCreatedAt());
         productRepository.save(product);
         return ProductResponse.builder()
                 .id(product.getId())
