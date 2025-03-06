@@ -2,7 +2,6 @@ package nuam.products.api.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -12,5 +11,5 @@ public class ErrorResponse {
     private LocalDateTime timestamp;
     private int status;
     private String message;
-    private Map<String, String> errors;
+    private Map<String, String> details; // Campo para errores específicos
 }

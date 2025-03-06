@@ -75,6 +75,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+
     /**
      * PUT /products/{id}
      * Updates an existing product.
