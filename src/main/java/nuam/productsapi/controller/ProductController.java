@@ -1,14 +1,20 @@
 package nuam.productsapi.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import nuam.productsapi.dto.ProductDto;
+import lombok.extern.slf4j.Slf4j;
+import nuam.productsapi.dto.request.ProductDto;
 import nuam.productsapi.service.intf.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -22,51 +28,83 @@ public class ProductController {
 
     /**
      * POST /products
-     * Crea un nuevo producto.
+     * Creates a new product.
      */
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductDto createProduct(@Valid @RequestBody ProductDto productDto) {
-        // Delegamos la creación a la capa de servicio.
-        return productService.createProduct(productDto);
+    @Operation(summary = "Create a new product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Product created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody ProductDto productDto) {
+        log.info("Received request to create product: {}", productDto);
+        ProductDto createdProduct = productService.createProduct(productDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
     /**
      * GET /products
-     * Obtiene todos los productos.
+     * Retrieves all products.
      */
     @GetMapping
-    public List<ProductDto> getAllProducts() {
-        // El controlador no contiene lógica de negocio, solo delega en el servicio.
-        return productService.getAllProducts();
+    @Operation(summary = "Retrieve all products")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Products retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
+        List<ProductDto> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
 
     /**
      * GET /products/{id}
-     * Obtiene un producto por ID.
+     * Retrieves a product by ID.
      */
     @GetMapping("/{id}")
-    public ProductDto getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    @Operation(summary = "Retrieve a product by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Product not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
+        ProductDto product = productService.getProductById(id);
+        return ResponseEntity.ok(product);
     }
 
     /**
      * PUT /products/{id}
-     * Actualiza un producto existente.
+     * Updates an existing product.
      */
     @PutMapping("/{id}")
-    public ProductDto updateProduct(@PathVariable Long id,
-                                    @Valid @RequestBody ProductDto productDto) {
-        return productService.updateProduct(id, productDto);
+    @Operation(summary = "Update an existing product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request"),
+            @ApiResponse(responseCode = "404", description = "Product not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id,
+                                                    @Valid @RequestBody ProductDto productDto) {
+        ProductDto updatedProduct = productService.updateProduct(id, productDto);
+        return ResponseEntity.ok(updatedProduct);
     }
 
     /**
      * DELETE /products/{id}
-     * Elimina un producto por ID.
+     * Deletes a product by ID.
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable Long id) {
+    @Operation(summary = "Delete a product by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Product deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Product not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }
