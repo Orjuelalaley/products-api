@@ -5,7 +5,7 @@ Incluye un contenedor **PostgreSQL** para la base de datos y otro para la aplica
 
 ## Características
 
-- CRUD de productos: crear 
+- CRUD de productos: crear
 - Validación de datos de entrada.
 - Manejo de excepciones con respuestas HTTP adecuadas.
 - Documentación OpenAPI/Swagger.
@@ -46,7 +46,7 @@ La arquitectura se basa en un **layered approach** con responsabilidades bien de
 - **PostgreSQL**: Base de datos relacional elegida.
 - **Lombok** : Reduce el boilerplate (getters, setters, constructores) en entidades y DTOs.
 - **Logback con SLF4J**: Sistema de logging avanzado para imprimir logs en consola con colores y almacenar logs en archivos rotados por día.
-- **Validación** con `javax.validation` (por ejemplo, `@NotBlank`, `@Size`) para asegurar la calidad de los datos.
+- **Validación** con `Spring Validation` (por ejemplo, `@Valid`, `@Size`) para asegurar la calidad de los datos.
 - **Swagger/OpenAPI**: Documentación automática de la API, facilitando la exploración y el uso de los endpoints.
 ---
 
@@ -163,6 +163,15 @@ En este proyecto, se manejan varias ramas de Git para organizar el desarrollo:
 4. **feature/readme**
     - Rama creada específicamente para construir y refinar el archivo README, agregando documentación y explicaciones detalladas sobre la arquitectura, las decisiones técnicas y el flujo de trabajo.
 
+5. **feature/pagination**
+    - Rama creada para agregar la funcionalidad de paginación en el listado de productos en el servidor.
+      En esta branch se implementó la lógica para paginar la respuesta de la API, mejorando la eficiencia y estabilidad en la serialización de la información.
+
+6. **caching-redis**
+    - Rama creada para probar la integración de Redis como sistema de caché en el proyecto.
+    - En esta rama se realizaron pruebas de configuración y se exploraron ejemplos de uso de Redis para cachear datos y mejorar el rendimiento.
+
+
 ## Flujo de Trabajo
 
 1. **Crear/Usar una rama específica** para la funcionalidad deseada (por ejemplo, `feature/docker` o `feature/readme`).
@@ -171,4 +180,3 @@ En este proyecto, se manejan varias ramas de Git para organizar el desarrollo:
 4. **Eliminar la rama** temporal si ya no es necesaria, manteniendo así un historial limpio y claro.
 
 Este proceso facilita la colaboración, la revisión de código y el control de versiones de forma ordenada.
-
