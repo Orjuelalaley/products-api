@@ -7,14 +7,9 @@ import nuam.products.api.dto.response.ProductResponse;
 import nuam.products.api.repository.ProductRepository;
 import nuam.products.api.service.intf.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -27,16 +22,12 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    @Cacheable(value = "productsList", unless = "#result.size() == 0")
-    public List<ProductResponse> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public Page<ProductResponse> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable)
+                .map(this::convertToDto);
     }
 
     @Override
-    @Cacheable(value = "products", key = "#id", unless = "#result == null")
     public ProductResponse getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
@@ -44,7 +35,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    @CachePut(value = "products", key = "#result.id")
     public ProductResponse createProduct(ProductDto productDto) {
         Product product = convertToEntity(productDto);
         Product savedProduct = productRepository.save(product);
@@ -52,7 +42,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    @CachePut(value = "products", key = "#id")
     public ProductResponse updateProduct(Long id, ProductDto productDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
@@ -62,16 +51,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value = "products", key = "#id"),
-            @CacheEvict(value = "productsList", allEntries = true)
-    })
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
         productRepository.delete(product);
     }
-
 
     private ProductResponse convertToDto(Product product) {
         return ProductResponse.builder()

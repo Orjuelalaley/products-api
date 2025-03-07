@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
                 null
         );
 
-        log.error("Error interno: {}", ex.getMessage());
+        log.error("Error interno", ex);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -162,6 +162,9 @@ En este proyecto, se manejan varias ramas de Git para organizar el desarrollo:
 
 4. **feature/readme**
     - Rama creada específicamente para construir y refinar el archivo README, agregando documentación y explicaciones detalladas sobre la arquitectura, las decisiones técnicas y el flujo de trabajo.
+5. **feature/pagination**
+   - Rama creada para agregar la funcionalidad de paginación en el listado de productos en el servidor.
+       En esta branch se implementó la lógica para paginar la respuesta de la API, mejorando la eficiencia y estabilidad en la serialización de la información.
 
 ## Flujo de Trabajo
 

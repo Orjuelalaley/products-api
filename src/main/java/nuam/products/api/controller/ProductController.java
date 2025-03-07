@@ -8,12 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 import nuam.products.api.dto.request.ProductDto;
 import nuam.products.api.dto.response.ProductResponse;
 import nuam.products.api.service.intf.IProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -54,9 +58,12 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Products retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ResponseEntity<List<ProductResponse>> getAllProducts() {
-        List<ProductResponse> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
+    public ResponseEntity<PagedModel<EntityModel<ProductResponse>>> getAllProducts(
+            Pageable pageable,
+            PagedResourcesAssembler<ProductResponse> assembler) {
+        Page<ProductResponse> page = productService.getAllProducts(pageable);
+        PagedModel<EntityModel<ProductResponse>> pagedModel = assembler.toModel(page);
+        return ResponseEntity.ok(pagedModel);
     }
 
     /**
