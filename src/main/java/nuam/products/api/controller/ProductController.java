@@ -90,6 +90,7 @@ public class ProductController {
     })
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,
                                                     @Valid @RequestBody ProductDto productDto) {
+        log.info("Received request to update an existing product: {}", productDto);
         ProductResponse updatedProduct = productService.updateProduct(id, productDto);
         return ResponseEntity.ok(updatedProduct);
     }
@@ -106,6 +107,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        log.info("Received request to delete an existing product: {}", id);
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
