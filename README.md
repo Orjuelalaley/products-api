@@ -46,7 +46,7 @@ La arquitectura se basa en un **layered approach** con responsabilidades bien de
 - **PostgreSQL**: Base de datos relacional elegida.
 - **Lombok** : Reduce el boilerplate (getters, setters, constructores) en entidades y DTOs.
 - **Logback con SLF4J**: Sistema de logging avanzado para imprimir logs en consola con colores y almacenar logs en archivos rotados por día.
-- **Validación** con `javax.validation` (por ejemplo, `@NotBlank`, `@Size`) para asegurar la calidad de los datos.
+- **Validación** con `Spring Validation` (por ejemplo, `@Valid`, `@Size`) para asegurar la calidad de los datos.
 - **Swagger/OpenAPI**: Documentación automática de la API, facilitando la exploración y el uso de los endpoints.
 ---
 
