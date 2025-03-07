@@ -29,7 +29,7 @@ public class Product {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 1000)
+    @Column(length = 1000)
     private String description;
 
     @DecimalMin(value = "0.0", message = "The price must be greater than zero.")

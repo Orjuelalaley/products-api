@@ -15,9 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -100,7 +98,6 @@ class ProductControllerTest {
         productDto.setName("Product 1");
         productDto.setDescription("Description of product 1");
         productDto.setPrice(BigDecimal.valueOf(100.0));
-        productDto.setCreatedAt(LocalDateTime.now());
         return productDto;
     }
 
@@ -109,7 +106,6 @@ class ProductControllerTest {
         productDto.setName("Product 1");
         productDto.setDescription("Description of product updated");
         productDto.setPrice(BigDecimal.valueOf(10000.0));
-        productDto.setCreatedAt(LocalDateTime.now());
         return productDto;
     }
 

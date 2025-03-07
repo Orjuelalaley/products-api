@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ProductService implements IProductService {
 
@@ -72,7 +74,7 @@ public class ProductService implements IProductService {
                 .name(productDto.getName())
                 .description(productDto.getDescription())
                 .price(productDto.getPrice())
-                .createdAt(productDto.getCreatedAt())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 

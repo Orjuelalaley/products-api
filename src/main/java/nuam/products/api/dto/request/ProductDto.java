@@ -22,5 +22,4 @@ public class ProductDto implements Serializable {
     private String description;
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.")
     private BigDecimal price;
-    private LocalDateTime createdAt;
 }
