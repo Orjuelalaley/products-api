@@ -3,13 +3,13 @@ package nuam.products.api.service.intf;
 
 import nuam.products.api.dto.request.ProductDto;
 import nuam.products.api.dto.response.ProductResponse;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IProductService {
     ProductResponse createProduct(ProductDto productRequest);
 
-    List<ProductResponse> getAllProducts();
+    Page<ProductResponse> getAllProducts(Pageable pageable);
 
     ProductResponse getProductById(Long id);
 

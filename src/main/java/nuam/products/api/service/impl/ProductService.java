@@ -2,31 +2,29 @@ package nuam.products.api.service.impl;
 
 import nuam.products.api.dto.request.ProductDto;
 import nuam.products.api.entity.Product;
+import nuam.products.api.exception.ProductNotFoundException;
+import nuam.products.api.dto.response.ProductResponse;
 import nuam.products.api.repository.ProductRepository;
 import nuam.products.api.service.intf.IProductService;
-import nuam.products.api.dto.response.ProductResponse;
-import nuam.products.api.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
+
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     @Override
-    public List<ProductResponse> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public Page<ProductResponse> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable)
+                .map(this::convertToDto);
     }
 
     @Override
@@ -79,7 +77,6 @@ public class ProductService implements IProductService {
     }
 
     private void updateEntityFromDto(Product product, ProductDto productDto) {
-        // Aquí se actualizan únicamente los atributos modificables
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
