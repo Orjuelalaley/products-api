@@ -58,7 +58,7 @@ class ProductControllerTest {
 
     @Test
     void getProductById() throws Exception {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(URL + "/2")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(URL + "/1")
                         .accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE)))
                 .andReturn();
