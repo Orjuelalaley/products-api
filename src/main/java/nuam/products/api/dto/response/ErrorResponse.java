@@ -11,5 +11,5 @@ public class ErrorResponse {
     private LocalDateTime timestamp;
     private int status;
     private String message;
-    private Map<String, String> details; // Campo para errores específicos
+    private Map<String, String> details;
 }

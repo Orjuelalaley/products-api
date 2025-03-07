@@ -54,13 +54,10 @@ public class ProductService implements IProductService {
 
     @Override
     public void deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new ProductNotFoundException(id);
-        }
-        productRepository.deleteById(id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+        productRepository.delete(product);
     }
-
-    // Métodos privados de mapeo para separar responsabilidades
 
     private ProductResponse convertToDto(Product product) {
         return ProductResponse.builder()
